@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import scss from 'rollup-plugin-scss';
+import path from 'path';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -73,6 +74,9 @@ export default {
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
 		production && terser(),
+		alias({
+			entries: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+		}),
 	],
 	watch: {
 		clearScreen: false,
